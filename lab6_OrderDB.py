@@ -1,8 +1,6 @@
 import mysql.connector
 
 
-# TODO: Fill in code where you see TODO
-
 class OrderDB:
     """Application for querying an order database"""
 
@@ -10,9 +8,8 @@ class OrderDB:
         """Makes a connection to the database and returns connection to caller"""
         try:
             print("Connecting to database.")
-            # TODO: Fill in your connection information
-            self.cnx = mysql.connector.connect(user='your userid', password='yourpassword', host='cosc304.ok.ubc.ca',
-                                               database='db_youruserid')
+            self.cnx = mysql.connector.connect(user='wmcfarla', password='86184900', host='cosc304.ok.ubc.ca',
+                                               database='db_wmcfarla')
             return self.cnx
         except mysql.connector.Error as err:
             print(err)
