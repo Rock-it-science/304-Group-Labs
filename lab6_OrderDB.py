@@ -143,6 +143,11 @@ class OrderDB:
         """Inserts a lineitem into the database"""
         cursor = self.cnx.cursor(buffered = True)
         cursor.execute('INSERT INTO OrderedProduct VALUES ("{}", "{}", "{}", "{}");'.format(orderId, proudctId, quantity, price))
+        cursor.execute('SELECT SUM(Price) FROM OrderedProduct ORDER BY OrderId HAVING OrderId = {}'.format(orderId))
+        total = 0
+        for tot in cursor:
+            total = tot
+        updateOrderTotal(orderId, tot)
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
