@@ -61,7 +61,7 @@ class OrderDB:
         cursor.execute(query)
         # TODO: Execute query and build output string
         for(CustomerId, CustomerName) in cursor:
-        	output+= "\n {} {}".format(CustomerId, CustomerName)
+        	output+= "\n {}, {}".format(CustomerId, CustomerName)
         return output        
 
     def listCustomerOrders(self, customerId):

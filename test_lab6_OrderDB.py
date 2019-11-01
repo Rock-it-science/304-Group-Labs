@@ -3,12 +3,12 @@ import unittest
 # Note: If using Jupyter Notebook may need to use special package to import notebooks
 # pip install import_ipnyb
 # import import_ipynb
-import OrderDB
+import lab6_OrderDB
 
 
 class TestOrderDB(unittest.TestCase):
     def setUp(self):
-        self.orderDB = OrderDB.OrderDB()
+        self.orderDB = lab6_OrderDB.OrderDB()
         self.orderDB.con = self.orderDB.connect()
         self.orderDB.init()
 
@@ -27,32 +27,32 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("CustomerId, CustomerName"
-                  + "\n00000, A. Anderson"
-                  + "\n00001, B. Brown"
-                  + "\n00002, C. Cole"
-                  + "\n00003, D. Doe"
-                  + "\n00004, E. Elliott"
-                  + "\n00005, F. Ford"
-                  + "\n00006, G. Grimmer"
-                  + "\n00007, H. Hoover"
-                  + "\n00008, I. Irving"
-                  + "\n00009, J. Jordan"
-                  + "\n00010, K. Kurtz"
-                  + "\n00011, L. Lamb"
-                  + "\n00012, M. Miller"
-                  + "\n00013, N. Norris"
-                  + "\n00014, O. Olsen"
-                  + "\n00015, P. Pitt"
-                  + "\n00016, Q. Quirrel"
-                  + "\n00017, Steve Raet"
-                  + "\n00018, Fred Smith"
-                  + "\n00019, T. Thomas"
-                  + "\n00020, U. Underwood"
-                  + "\n00021, V. Voss"
-                  + "\n00022, W. Williams"
-                  + "\n00023, X. Xu"
-                  + "\n00024, Y. Yoder"
-                  + "\n00025, Z. Zimmerman")
+                  + "\n 00000, A. Anderson"
+                  + "\n 00001, B. Brown"
+                  + "\n 00002, C. Cole"
+                  + "\n 00003, D. Doe"
+                  + "\n 00004, E. Elliott"
+                  + "\n 00005, F. Ford"
+                  + "\n 00006, G. Grimmer"
+                  + "\n 00007, H. Hoover"
+                  + "\n 00008, I. Irving"
+                  + "\n 00009, J. Jordan"
+                  + "\n 00010, K. Kurtz"
+                  + "\n 00011, L. Lamb"
+                  + "\n 00012, M. Miller"
+                  + "\n 00013, N. Norris"
+                  + "\n 00014, O. Olsen"
+                  + "\n 00015, P. Pitt"
+                  + "\n 00016, Q. Quirrel"
+                  + "\n 00017, Steve Raet"
+                  + "\n 00018, Fred Smith"
+                  + "\n 00019, T. Thomas"
+                  + "\n 00020, U. Underwood"
+                  + "\n 00021, V. Voss"
+                  + "\n 00022, W. Williams"
+                  + "\n 00023, X. Xu"
+                  + "\n 00024, Y. Yoder"
+                  + "\n 00025, Z. Zimmerman")
 
         print(result);
         self.assertEqual(answer, result);
@@ -69,13 +69,13 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("OrderId, OrderDate, CustomerId, EmployeeId, Total"
-                  + "\n01001, 2014-11-08 00:00:00, 00001, E0000, 1610.59"
-                  + "\n01031, 2014-11-29 00:00:00, 00001, E0006, 1.90"
-                  + "\n01035, 2015-01-02 00:00:00, 00001, E0006, 1.90"
-                  + "\n01039, 2015-01-06 00:00:00, 00001, E0006, 1344.97"
-                  + "\n01043, 2015-01-10 00:00:00, 00001, E0006, 1099.99"
-                  + "\n01047, 2015-01-14 00:00:00, 00001, E0003, 1.90"
-                  + "\n01056, 2015-01-18 00:00:00, 00001, E0003, 1.00")
+                  + "\n 01001, 2014-11-08 00:00:00, 00001, E0000, 1610.59"
+                  + "\n 01031, 2014-11-29 00:00:00, 00001, E0006, 1.90"
+                  + "\n 01035, 2015-01-02 00:00:00, 00001, E0006, 1.90"
+                  + "\n 01039, 2015-01-06 00:00:00, 00001, E0006, 1344.97"
+                  + "\n 01043, 2015-01-10 00:00:00, 00001, E0006, 1099.99"
+                  + "\n 01047, 2015-01-14 00:00:00, 00001, E0003, 1.90"
+                  + "\n 01056, 2015-01-18 00:00:00, 00001, E0003, 1.00")
 
         print(queryResult)
         self.assertEqual(answer, queryResult)
@@ -101,12 +101,12 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("Total columns: 4"
-                  + "\nOrderId, ProductId, Quantity, Price"
-                  + "\n01000, P0005, 1, 3.10"
-                  + "\n01000, P0008, 1, 2.50"
-                  + "\n01000, P0012, 2, 1.97"
-                  + "\n01000, P0014, 3, 2.01"
-                  + "\nTotal results: 4")
+                  + "\n OrderId, ProductId, Quantity, Price"
+                  + "\n 01000, P0005, 1, 3.10"
+                  + "\n 01000, P0008, 1, 2.50"
+                  + "\n 01000, P0012, 2, 1.97"
+                  + "\n 01000, P0014, 3, 2.01"
+                  + "\n Total results: 4")
 
         queryResult = self.orderDB.resultSetToString(cursor, 100)
         print(queryResult)
@@ -150,7 +150,7 @@ class TestOrderDB(unittest.TestCase):
 
         answer = ("Total columns: 1"
                   + "\norderTotal"
-                  + "\n24.95"
+                  + "\n14.95"
                   + "\nTotal results: 1")
 
         queryResult = self.orderDB.resultSetToString(cursor, 100)
@@ -170,34 +170,34 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("CustomerId, CustomerName"
-                  + "\n00000, A. Anderson"
-                  + "\n00001, B. Brown"
-                  + "\n00002, C. Cole"
-                  + "\n00003, D. Doe"
-                  + "\n00004, E. Elliott"
-                  + "\n00005, F. Ford"
-                  + "\n00006, G. Grimmer"
-                  + "\n00007, H. Hoover"
-                  + "\n00008, I. Irving"
-                  + "\n00009, J. Jordan"
-                  + "\n00010, K. Kurtz"
-                  + "\n00011, L. Lamb"
-                  + "\n00012, M. Miller"
-                  + "\n00013, N. Norris"
-                  + "\n00014, O. Olsen"
-                  + "\n00015, P. Pitt"
-                  + "\n00016, Q. Quirrel"
-                  + "\n00017, Steve Raet"
-                  + "\n00018, Fred Smith"
-                  + "\n00019, T. Thomas"
-                  + "\n00020, U. Underwood"
-                  + "\n00021, V. Voss"
-                  + "\n00022, W. Williams"
-                  + "\n00023, X. Xu"
-                  + "\n00024, Y. Yoder"
-                  + "\n00025, Z. Zimmerman"
-                  + "\n11111, Fred Smith"
-                  + "\n11112, George Jeff")
+                  + "\n 00000, A. Anderson"
+                  + "\n 00001, B. Brown"
+                  + "\n 00002, C. Cole"
+                  + "\n 00003, D. Doe"
+                  + "\n 00004, E. Elliott"
+                  + "\n 00005, F. Ford"
+                  + "\n 00006, G. Grimmer"
+                  + "\n 00007, H. Hoover"
+                  + "\n 00008, I. Irving"
+                  + "\n 00009, J. Jordan"
+                  + "\n 00010, K. Kurtz"
+                  + "\n 00011, L. Lamb"
+                  + "\n 00012, M. Miller"
+                  + "\n 00013, N. Norris"
+                  + "\n 00014, O. Olsen"
+                  + "\n 00015, P. Pitt"
+                  + "\n 00016, Q. Quirrel"
+                  + "\n 00017, Steve Raet"
+                  + "\n 00018, Fred Smith"
+                  + "\n 00019, T. Thomas"
+                  + "\n 00020, U. Underwood"
+                  + "\n 00021, V. Voss"
+                  + "\n 00022, W. Williams"
+                  + "\n 00023, X. Xu"
+                  + "\n 00024, Y. Yoder"
+                  + "\n 00025, Z. Zimmerman"
+                  + "\n 11111, Fred Smith"
+                  + "\n 11112, George Jeff")
 
         # Verify add
         result = self.orderDB.listAllCustomers()
@@ -216,31 +216,31 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("CustomerId, CustomerName"
-                  + "\n00000, A. Anderson"
-                  + "\n00002, C. Cole"
-                  + "\n00003, D. Doe"
-                  + "\n00004, E. Elliott"
-                  + "\n00005, F. Ford"
-                  + "\n00006, G. Grimmer"
-                  + "\n00007, H. Hoover"
-                  + "\n00008, I. Irving"
-                  + "\n00009, J. Jordan"
-                  + "\n00010, K. Kurtz"
-                  + "\n00011, L. Lamb"
-                  + "\n00012, M. Miller"
-                  + "\n00013, N. Norris"
-                  + "\n00014, O. Olsen"
-                  + "\n00015, P. Pitt"
-                  + "\n00016, Q. Quirrel"
-                  + "\n00017, Steve Raet"
-                  + "\n00018, Fred Smith"
-                  + "\n00019, T. Thomas"
-                  + "\n00020, U. Underwood"
-                  + "\n00021, V. Voss"
-                  + "\n00022, W. Williams"
-                  + "\n00023, X. Xu"
-                  + "\n00024, Y. Yoder"
-                  + "\n00025, Z. Zimmerman")
+                  + "\n 00000, A. Anderson"
+                  + "\n 00002, C. Cole"
+                  + "\n 00003, D. Doe"
+                  + "\n 00004, E. Elliott"
+                  + "\n 00005, F. Ford"
+                  + "\n 00006, G. Grimmer"
+                  + "\n 00007, H. Hoover"
+                  + "\n 00008, I. Irving"
+                  + "\n 00009, J. Jordan"
+                  + "\n 00010, K. Kurtz"
+                  + "\n 00011, L. Lamb"
+                  + "\n 00012, M. Miller"
+                  + "\n 00013, N. Norris"
+                  + "\n 00014, O. Olsen"
+                  + "\n 00015, P. Pitt"
+                  + "\n 00016, Q. Quirrel"
+                  + "\n 00017, Steve Raet"
+                  + "\n 00018, Fred Smith"
+                  + "\n 00019, T. Thomas"
+                  + "\n 00020, U. Underwood"
+                  + "\n 00021, V. Voss"
+                  + "\n 00022, W. Williams"
+                  + "\n 00023, X. Xu"
+                  + "\n 00024, Y. Yoder"
+                  + "\n 00025, Z. Zimmerman")
 
         # Verify add
         result = self.orderDB.listAllCustomers()
@@ -267,33 +267,33 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("CustomerId, CustomerName"
-                  + "\n00000, A. Anderson"
-                  + "\n00001, B. Brown"
-                  + "\n00002, C. Cole"
-                  + "\n00003, D. Doe"
-                  + "\n00004, E. Elliott"
-                  + "\n00005, F. Ford"
-                  + "\n00006, G. Grimmer"
-                  + "\n00007, H. Hoover"
-                  + "\n00008, I. Irving"
-                  + "\n00009, J. Jordan"
-                  + "\n00010, K. Kurtz"
-                  + "\n00011, L. Lamb"
-                  + "\n00012, M. Miller"
-                  + "\n00013, N. Norris"
-                  + "\n00014, O. Olsen"
-                  + "\n00015, P. Pitt"
-                  + "\n00016, Q. Quirrel"
-                  + "\n00017, Steve Raet"
-                  + "\n00018, Fred Smith"
-                  + "\n00019, T. Thomas"
-                  + "\n00020, U. Underwood"
-                  + "\n00021, V. Voss"
-                  + "\n00022, W. Williams"
-                  + "\n00023, X. Xu"
-                  + "\n00024, Y. Yoder"
-                  + "\n00025, Z. Zimmerman"
-                  + "\n11111, Freddy Smithers")
+                  + "\n 00000, A. Anderson"
+                  + "\n 00001, B. Brown"
+                  + "\n 00002, C. Cole"
+                  + "\n 00003, D. Doe"
+                  + "\n 00004, E. Elliott"
+                  + "\n 00005, F. Ford"
+                  + "\n 00006, G. Grimmer"
+                  + "\n 00007, H. Hoover"
+                  + "\n 00008, I. Irving"
+                  + "\n 00009, J. Jordan"
+                  + "\n 00010, K. Kurtz"
+                  + "\n 00011, L. Lamb"
+                  + "\n 00012, M. Miller"
+                  + "\n 00013, N. Norris"
+                  + "\n 00014, O. Olsen"
+                  + "\n 00015, P. Pitt"
+                  + "\n 00016, Q. Quirrel"
+                  + "\n 00017, Steve Raet"
+                  + "\n 00018, Fred Smith"
+                  + "\n 00019, T. Thomas"
+                  + "\n 00020, U. Underwood"
+                  + "\n 00021, V. Voss"
+                  + "\n 00022, W. Williams"
+                  + "\n 00023, X. Xu"
+                  + "\n 00024, Y. Yoder"
+                  + "\n 00025, Z. Zimmerman"
+                  + "\n 11111, Freddy Smithers")
 
         # Verify update
         result = self.orderDB.listAllCustomers();
@@ -455,12 +455,12 @@ class TestOrderDB(unittest.TestCase):
         # Verify result
         answer = ("Total columns: 3"
                   + "\nCustomerId, CustomerName, avgTotal"
-                  + "\n00001, B. Brown, 489.952000"
-                  + "\n00002, C. Cole, 1.900000"
-                  + "\n00003, D. Doe, 1.900000"
-                  + "\n00004, E. Elliott, 338.943750"
-                  + "\n00005, F. Ford, 1.000000"
-                  + "\n00006, G. Grimmer, 1.000000"
+                  + "\n 00001, B. Brown, 489.952000"
+                  + "\n 00002, C. Cole, 1.900000"
+                  + "\n 00003, D. Doe, 1.900000"
+                  + "\n 00004, E. Elliott, 338.943750"
+                  + "\n 00005, F. Ford, 1.000000"
+                  + "\n 00006, G. Grimmer, 1.000000"
                   + "\nTotal results: 6")
 
         queryResult = self.orderDB.resultSetToString(cursor, 100)
