@@ -101,7 +101,7 @@ class TestOrderDB(unittest.TestCase):
 
         # Verify result
         answer = ("Total columns: 4"
-                  + "\n OrderId, ProductId, Quantity, Price"
+                  + "\nOrderId, ProductId, Quantity, Price"
                   + "\n 01000, P0005, 1, 3.10"
                   + "\n 01000, P0008, 1, 2.50"
                   + "\n 01000, P0012, 2, 1.97"
