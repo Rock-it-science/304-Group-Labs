@@ -102,11 +102,11 @@ class TestOrderDB(unittest.TestCase):
         # Verify result
         answer = ("Total columns: 4"
                   + "\nOrderId, ProductId, Quantity, Price"
-                  + "\n 01000, P0005, 1, 3.10"
-                  + "\n 01000, P0008, 1, 2.50"
-                  + "\n 01000, P0012, 2, 1.97"
-                  + "\n 01000, P0014, 3, 2.01"
-                  + "\n Total results: 4")
+                  + "\n01000, P0005, 1, 3.10"
+                  + "\n01000, P0008, 1, 2.50"
+                  + "\n01000, P0012, 2, 1.97"
+                  + "\n01000, P0014, 3, 2.01"
+                  + "\nTotal results: 4")
 
         queryResult = self.orderDB.resultSetToString(cursor, 100)
         print(queryResult)
@@ -455,12 +455,12 @@ class TestOrderDB(unittest.TestCase):
         # Verify result
         answer = ("Total columns: 3"
                   + "\nCustomerId, CustomerName, avgTotal"
-                  + "\n 00001, B. Brown, 489.952000"
-                  + "\n 00002, C. Cole, 1.900000"
-                  + "\n 00003, D. Doe, 1.900000"
-                  + "\n 00004, E. Elliott, 338.943750"
-                  + "\n 00005, F. Ford, 1.000000"
-                  + "\n 00006, G. Grimmer, 1.000000"
+                  + "\n00001, B. Brown, 489.952000"
+                  + "\n00002, C. Cole, 1.900000"
+                  + "\n00003, D. Doe, 1.900000"
+                  + "\n00004, E. Elliott, 338.943750"
+                  + "\n00005, F. Ford, 1.000000"
+                  + "\n00006, G. Grimmer, 1.000000"
                   + "\nTotal results: 6")
 
         queryResult = self.orderDB.resultSetToString(cursor, 100)
