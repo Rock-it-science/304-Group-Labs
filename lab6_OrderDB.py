@@ -80,7 +80,7 @@ class OrderDB:
         cursor = self.cnx.cursor(buffered = True)
         cursor.execute("SELECT OrderId, OrderDate, CustomerId, EmployeeId, Total FROM Orders WHERE CustomerId = {};".format(customerId))
         # TODO: Similar to listAllCustomers(), execute query and store results in a string and return the string
-        for(CustomerId, OrderDate, CustomerId, EmployeeId, Total)in cursor:
+        for(OrderId, OrderDate, CustomerId, EmployeeId, Total)in cursor:
         	output += "\n {} {} {} {} {}".format(OrderId, OrderDate, CustomerId, EmployeeId, Total)
         cursor.close()
         return output  
