@@ -178,7 +178,7 @@ class OrderDB:
         """Returns the list of products that have not been in any order. Hint: Left join can be used instead of a subquery."""
         print("\nExecuting query #1.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT ProductName FROM Product WHERE ProductId NOT IN(SELECT ProductId FROM OrderedProduct);')
+        cursor.execute('SELECT ProductId FROM Product WHERE ProductId NOT IN(SELECT ProductId FROM OrderedProduct);')
         # TODO: Execute the query and return a cursor
         return cursor
 
