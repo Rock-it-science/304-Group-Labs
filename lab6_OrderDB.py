@@ -105,7 +105,8 @@ class OrderDB:
     def addCustomer(self, customerId, customerName):
         """Inserts a customer into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('INSERT INTO Customer VALUES ({}, {});'.format(customerId, customerName))
+        query = 'INSERT INTO Customer VALUES ("{}", "{}");'.format(customerId, customerName)
+        cursor.execute(query)
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
