@@ -92,6 +92,13 @@ class OrderDB:
     
     def listLineItemsForOrder(self, orderId):
         """Returns a cursor with all line items for a given order id."""
+        try:
+            a = int(orderId)
+        except:
+            cursor = serlf.cnx.cursor(buffered = True)
+            query = "SELECT * FROM OrderedProduct WHERE OrderId = 0;"
+            cursor.execute(query)
+            return cursor
         cursor = self.cnx.cursor(buffered = True)
         query = "SELECT * FROM OrderedProduct WHERE OrderId = {};".format(orderId)
         cursor.execute(query)
