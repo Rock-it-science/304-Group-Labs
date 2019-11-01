@@ -147,7 +147,7 @@ class OrderDB:
     def newLineItem(self, orderId, proudctId, quantity, price):
         """Inserts a lineitem into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('INSERT INTO OrderedProduct VALUES ("{}", "{}", {}, "{}");'.format(orderId, proudctId, quantity, price))
+        cursor.execute('INSERT INTO OrderedProduct VALUES ("{}", "{}", "{}", "{}");'.format(orderId, proudctId, quantity, price))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -177,7 +177,7 @@ class OrderDB:
         cursor = self.cnx.cursor(buffered = True)
         cursor.execute('SELECT OrderID,Total FROM  Orders WHERE Total Not sum(OrderedProduct.Quantity*OrderedProduct.Price);')
         # TODO: Execute the query and return a cursor
-        return None   
+        return cursor  
 
     def query3(self):
         """Return for each customer their id, name and average total order amount for orders starting on January 1, 2015 (inclusive). Only show customers that have placed at least 2 orders.
@@ -190,7 +190,7 @@ class OrderDB:
         cursor = self.cnx.cursor(buffered = True)
         cursor.execute('SELECT C.CustomerID,C.CustomerName,AVG(O.total) FROM Customer as C,Orders as O WHERE O.OrderDate>='2015-01-01' AND O.total>=2);')
         # TODO: Execute the query and return a cursor
-        return None  
+        return cursor  
     
     def query4(self):
         """ Return the employees who have had at least 2 distinct orders where some product on the order had quantity >= 5.
@@ -200,7 +200,7 @@ class OrderDB:
         
         print("\nExecuting query #4.")
         # TODO: Execute the query and return a cursor
-        return None
+        return cursor
     
     # Do NOT change anything below here
     def resultSetToString(self, cursor, maxrows):
