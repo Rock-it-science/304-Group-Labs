@@ -95,7 +95,7 @@ class OrderDB:
         try:
             a = int(orderId)
         except:
-            cursor = serlf.cnx.cursor(buffered = True)
+            cursor = self.cnx.cursor(buffered = True)
             query = "SELECT * FROM OrderedProduct WHERE OrderId = 0;"
             cursor.execute(query)
             return cursor
