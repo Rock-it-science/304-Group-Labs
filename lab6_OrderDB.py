@@ -187,7 +187,7 @@ class OrderDB:
         
         print("\nExecuting query #2.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT Orders.OrderID,Orders.Total FROM Orders, (SELECT SUM(quantity * Price ) as tot, OrderId FROM OrderedProduct GROUP BY OrderId) as b WHERE Orders.Total <> b.tot AND Orders.OrderId = b.OrderId GROUP BY Orders.OrderId')
+        cursor.execute('SELECT Orders.OrderId,Orders.Total FROM Orders, (SELECT SUM(quantity * Price ) as tot, OrderId FROM OrderedProduct GROUP BY OrderId) as b WHERE Orders.Total <> b.tot AND Orders.OrderId = b.OrderId GROUP BY Orders.OrderId')
         # TODO: Execute the query and return a cursor  SELECT sum(quantity * Price ) FROM OrderedProduct WHERE OrderId = {}
         return cursor  
 
@@ -200,7 +200,7 @@ class OrderDB:
         
         print("\nExecuting query #3.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT C.CustomerID,C.CustomerName,AVG(O.total) as AverageTotal FROM Customer as C JOIN (SELECT * FROM Orders WHERE OrderDate > "2015-01-01") as O ON C.CustomerId = O.CustomerId GROUP BY C.CustomerId Having count(OrderId)>1;')
+        cursor.execute('SELECT C.CustomerId,C.CustomerName,AVG(O.total) as AverageTotal FROM Customer as C JOIN (SELECT * FROM Orders WHERE OrderDate > "2015-01-01") as O ON C.CustomerId = O.CustomerId GROUP BY C.CustomerId Having count(OrderId)>1;')
         # TODO: Execute the query and return a cursor
         return cursor  
     
@@ -212,7 +212,7 @@ class OrderDB:
         
         print("\nExecuting query #4.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute("SELECT E.EmployeeId, E.EmployeeName, count(E.EmployeeId) as NumberOfOrders from Employee E right join (select EmployeeId from Orders O join (select OrderId from OrderedProduct op where Quantity >= 5 group by op.OrderId) op on op.OrderId=O.OrderId) X on X.EmployeeId=E.EmployeeId group by E.EmployeeId having count(E.EmployeeId) > 1")
+        cursor.execute("SELECT E.EmployeeId, E.EmployeeName, count(E.EmployeeId) as OrderCount from Employee E right join (select EmployeeId from Orders O join (select OrderId from OrderedProduct op where Quantity >= 5 group by op.OrderId) op on op.OrderId=O.OrderId) X on X.EmployeeId=E.EmployeeId group by E.EmployeeId having count(E.EmployeeId) > 1")
         
 
         # TODO: Execute the query and return a cursor
