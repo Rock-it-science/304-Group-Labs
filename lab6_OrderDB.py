@@ -81,7 +81,7 @@ class OrderDB:
         cursor.execute("SELECT OrderId, OrderDate, CustomerId, EmployeeId, Total FROM Orders WHERE CustomerId = {};".format(customerId))
         # TODO: Similar to listAllCustomers(), execute query and store results in a string and return the string
         for(CustomerId, OrderDate, CustomerId, EmployeeId, Total)in cursor:
-        	output += "\n {} {} {} {} {}".format(CustomerId, OrderDate, CustomerId, EmployeeId, Total)
+        	output += "\n {} {} {} {} {}".format(OrderId, OrderDate, CustomerId, EmployeeId, Total)
         cursor.close()
         return output  
     
