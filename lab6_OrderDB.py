@@ -133,12 +133,7 @@ class OrderDB:
     def newOrder(self, orderId, customerId, orderDate, employeeId):
         """Inserts an order into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT Price FROM OrderedProduct WHERE OrderId = {}'.format(orderId))
-        total = 0
-        for item in cursor:
-            total = item
-        print(total)
-        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}", {});'.format(orderId, customerId, orderDate, employeeId, total))
+        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}", 0);'.format(orderId, customerId, orderDate, employeeId))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
