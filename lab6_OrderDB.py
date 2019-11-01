@@ -133,7 +133,7 @@ class OrderDB:
     def newOrder(self, orderId, customerId, orderDate, employeeId):
         """Inserts an order into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}", 0);'.format(orderId, orderDate, customerId, employeeId))
+        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}", NULL);'.format(orderId, orderDate, customerId, employeeId))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -175,8 +175,8 @@ class OrderDB:
         
         print("\nExecuting query #2.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT OrderID,Total FROM  Orders Having Total Not sum(OrderedProduct.Quantity*OrderedProduct.Price);')
-        # TODO: Execute the query and return a cursor
+        cursor.execute('SELECT Orders.OrderID,Orders.Total FROM Orders, (SELECT SUM(quantity * Price ) as tot, OrderId FROM OrderedProduct GROUP BY OrderId) as b WHERE Orders.Total <> b.tot AND Orders.OrderId = b.OrderId GROUP BY Orders.OrderId')
+        # TODO: Execute the query and return a cursor  SELECT sum(quantity * Price ) FROM OrderedProduct WHERE OrderId = {}
         return cursor  
 
     def query3(self):
