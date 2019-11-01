@@ -76,7 +76,12 @@ class OrderDB:
             Returns:
                 String containing orders
         """
+
         output = "OrderId, OrderDate, CustomerId, EmployeeId, Total"
+        try:
+            a = int(customerId)
+        except:
+            return output
         cursor = self.cnx.cursor(buffered = True)
         cursor.execute("SELECT OrderId, OrderDate, CustomerId, EmployeeId, Total FROM Orders WHERE CustomerId = {};".format(customerId))
         # TODO: Similar to listAllCustomers(), execute query and store results in a string and return the string
