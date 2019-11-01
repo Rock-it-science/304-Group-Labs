@@ -1,19 +1,20 @@
 import mysql.connector
 
+# TODO: Fill in code where you see TODO
 
 class OrderDB:
     """Application for querying an order database"""
-
+    
     def connect(self):
         """Makes a connection to the database and returns connection to caller"""
         try:
             print("Connecting to database.")
-            self.cnx = mysql.connector.connect(user='wmcfarla', password='86184900', host='cosc304.ok.ubc.ca',
-                                               database='db_wmcfarla')
+            # TODO: Fill in your connection information
+            self.cnx = mysql.connector.connect(user='cphillip', password='55712319', host='cosc304.ok.ubc.ca', database='db_cphillip')
             return self.cnx
-        except mysql.connector.Error as err:
-            print(err)
-
+        except mysql.connector.Error as err:  
+            print(err)       
+            
     def init(self):
         """Creates and initializes the database"""
         fileName = "order.ddl"
@@ -23,123 +24,152 @@ class OrderDB:
             with open(fileName, "r") as infile:
                 st = infile.read()
                 commands = st.split(";")
-                for line in commands:
+                for line in commands:                   
                     # print(line.strip("\n"))
                     line = line.strip()
                     if line == "":  # Skip blank lines
-                        continue
-
+                        continue 
+                        
                     cursor.execute(line)
-
+            
             cursor.close()
-            self.cnx.commit()
-        except mysql.connector.Error as err:
+            self.cnx.commit()            
+        except mysql.connector.Error as err:  
             print(err)
-
+               
     def close(self):
         try:
             print("Closing database connection.")
             self.cnx.close()
-        except mysql.connector.Error as err:
-            print(err)
-
+        except mysql.connector.Error as err:  
+            print(err)   
+            
     def listAllCustomers(self):
-        """ Returns a String with all the customers in the order database.
+        """ Returns a String with all the customers in the order database.  
             Format:
                 CustomerId, CustomerName
-                00000, A. Anderson
+                00000, A. Anderson 
 
             Return:
                 String containing customers"""
-
+        
         print("Executing list all customers.")
-
+        
         output = "CustomerId, CustomerName"
-
-        cursor = self.cnx.cursor()
+        query = "SELECT CustomerId, CustomerName FROM Customer"
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute(query)
         # TODO: Execute query and build output string
-        cursor.close()
-        return output
+        for(CustomerId, CustomerName) in cursor:
+        	output+= "\n {} {}".format(CustomerId, CustomerName)
+        return output        
 
     def listCustomerOrders(self, customerId):
         """ Returns a String with all the orders for a given customer id.
-
+     
             Note: May need to use getDate(). You should not retrieve all values as Strings.
 
             Format:
                 OrderId, OrderDate, CustomerId, EmployeeId, Total
                 01001, 2002-11-08, 00001, E0000, 1610.59
-
+                
             Returns:
                 String containing orders
         """
-
+        output = "CustomerId, OrderDate, CustomerId, EmployeeId, Total"
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute("SELECT OrderId, OrderDate, CustomerId, EmployeeId, Total FROM Orders WHERE CustomerId = {};".format(customerId))
         # TODO: Similar to listAllCustomers(), execute query and store results in a string and return the string
-
-        return ""
-
+        for(CustomerId, OrderDate, CustomerId, EmployeeId, Total)in cursor:
+        	output += "\n {} {} {} {} {}".format(CustomerId, OrderDate, CustomerId, EmployeeId, Total)
+        cursor.close()
+        return output  
+    
     def listLineItemsForOrder(self, orderId):
         """Returns a cursor with all line items for a given order id."""
-
+        cursor = self.cnx.cursor(buffered = True)
+        query = "SELECT * FROM Orders WHERE OrderId = {};".format(orderId)
+        cursor.execute(query)
         # TODO: Execute the query and return a cursor
-        return None
-
+        return cursor
+    
     def computeOrderTotal(self, orderId):
         """Returns a cursor with a row containing the computed order total from the lineitems (named as orderTotal) for a given order id.
              Note: Do NOT just return the Orders.Total value."""
-
+     
         # TODO: Execute the query and return a cursor
-        return None
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('SELECT SUM(Total) as orderTotal FROM Orders GROUP BY OrderId HAVING OrderId = {};'.format(orderId))
+        return cursor
+    
     def addCustomer(self, customerId, customerName):
         """Inserts a customer into the database"""
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('INSERT INTO Customer VALUES ({}, {});'.format(customerId, customerName))
+        cursor.close()
+        self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
         return
 
     def deleteCustomer(self, customerId):
         """Deletes a customer from the database"""
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('DELETE FROM Customer WHERE CustomerId = {};'.format(customerId))
+        cursor.close()
+        self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
-        return
-
+        return   
+    
     def updateCustomer(self, customerId, customerName):
         """Updates a customer in the database"""
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('UPDATE Customer SET CustomerName = {} WHERE CustomerId = {};'.format(CustomerName, CustomerId))
+        cursor.close()
+        self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
-        return
-
+        return  
+        
     def newOrder(self, orderId, customerId, orderDate, employeeId):
         """Inserts an order into the database"""
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('INSERT INTO Orders VALUES ({}, {}, {}, {});'.format(orderId, customerId, orderDate, employeeId))
+        cursor.close()
+        self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
-        return
-
+        return     
+        
     def newLineItem(self, orderId, proudctId, quantity, price):
         """Inserts a lineitem into the database"""
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('INSERT INTO OrderedProduct VALUES ({}, {}, {}, {});'.format(orderId, proudctId, quantity, price))
+        cursor.close()
+        self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
         return
-
+        
     def updateOrderTotal(self, orderId, total):
         """Updates an order total in the database"""
-
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('UPDATE Orders SET Total = {} WHERE OrderId = {};'.format(total, orderId))
+        cursor.close()
+        self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
-        return
+        return  
 
     def query1(self):
         """Returns the list of products that have not been in any order. Hint: Left join can be used instead of a subquery."""
-
         print("\nExecuting query #1.")
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('SELECT ProductName FROM Product WHERE ProductId NOT IN(SELECT ProductId FROM OrderedProduct;')
         # TODO: Execute the query and return a cursor
-        return None
+        return cursor
 
     def query2(self):
         """Returns the order ids and total amount where the order total does not equal the sum of quantity*price for all ordered products in the order."""
-
+        
         print("\nExecuting query #2.")
         # TODO: Execute the query and return a cursor
-        return None
+        return None   
 
     def query3(self):
         """Return for each customer their id, name and average total order amount for orders starting on January 1, 2015 (inclusive). Only show customers that have placed at least 2 orders.
@@ -147,37 +177,36 @@ class OrderDB:
                 CustomerId, CustomerName, avgTotal
                 00001, B. Brown, 489.952000
         """
-
+        
         print("\nExecuting query #3.")
         # TODO: Execute the query and return a cursor
-        return None
-
+        return None  
+    
     def query4(self):
         """ Return the employees who have had at least 2 distinct orders where some product on the order had quantity >= 5.
             Format:
-                EmployeeId, EmployeeName, orderCount
+                EmployeeId, EmployeeName, orderCount                
         """
-
+        
         print("\nExecuting query #4.")
         # TODO: Execute the query and return a cursor
         return None
-
+    
     # Do NOT change anything below here
     def resultSetToString(self, cursor, maxrows):
         output = ""
         cols = cursor.column_names
-        output += "Total columns: " + str(len(cols)) + "\n"
+        output += "Total columns: "+str(len(cols))+"\n"
         output += str(cols[0])
-        for i in range(1, len(cols)):
-            output += ", " + str(cols[i])
+        for i in range(1,len(cols)):
+            output += ", "+str(cols[i])
         for row in cursor:
-            output += "\n" + str(row[0])
-            for i in range(1, len(cols)):
-                output += ", " + str(row[i])
-        output += "\nTotal results: " + str(cursor.rowcount)
+            output += "\n"+str(row[0])
+            for i in range(1,len(cols)):
+                output += ", "+str(row[i])
+        output += "\nTotal results: "+str(cursor.rowcount)
         return output
-
-
+                
 # Main execution for testing
 orderDB = OrderDB()
 orderDB.connect()
@@ -203,5 +232,5 @@ print(orderDB.resultSetToString(orderDB.query1(), 100))
 print(orderDB.resultSetToString(orderDB.query2(), 100))
 print(orderDB.resultSetToString(orderDB.query3(), 100))
 print(orderDB.resultSetToString(orderDB.query4(), 100))
-
+        
 orderDB.close()
