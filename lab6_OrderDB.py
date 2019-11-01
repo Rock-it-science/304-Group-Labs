@@ -200,7 +200,7 @@ class OrderDB:
         
         print("\nExecuting query #3.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT C.CustomerId,C.CustomerName,AVG(O.total) as AverageTotal FROM Customer as C JOIN (SELECT * FROM Orders WHERE OrderDate > "2015-01-01") as O ON C.CustomerId = O.CustomerId GROUP BY C.CustomerId Having count(OrderId)>1;')
+        cursor.execute('SELECT C.CustomerId,C.CustomerName,AVG(O.total) as AvgTotal FROM Customer as C JOIN (SELECT * FROM Orders WHERE OrderDate > "2015-01-01") as O ON C.CustomerId = O.CustomerId GROUP BY C.CustomerId Having count(OrderId)>1;')
         # TODO: Execute the query and return a cursor
         return cursor  
     
