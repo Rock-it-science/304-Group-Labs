@@ -174,6 +174,8 @@ class OrderDB:
         """Returns the order ids and total amount where the order total does not equal the sum of quantity*price for all ordered products in the order."""
         
         print("\nExecuting query #2.")
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('SELECT OrderID,Total FROM  Orders WHERE Total Not sum(OrderedProduct.Quantity*OrderedProduct.Price);)
         # TODO: Execute the query and return a cursor
         return None   
 
@@ -185,6 +187,8 @@ class OrderDB:
         """
         
         print("\nExecuting query #3.")
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('SELECT OrderID,Total FROM  Orders WHERE Total Not sum(OrderedProduct.Quantity*OrderedProduct.Price);)
         # TODO: Execute the query and return a cursor
         return None  
     
