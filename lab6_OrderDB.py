@@ -88,7 +88,7 @@ class OrderDB:
     def listLineItemsForOrder(self, orderId):
         """Returns a cursor with all line items for a given order id."""
         cursor = self.cnx.cursor(buffered = True)
-        query = "SELECT * FROM Orders WHERE OrderId = {};".format(orderId)
+        query = "SELECT * FROM OrderedProduct WHERE OrderId = {};".format(orderId)
         cursor.execute(query)
         # TODO: Execute the query and return a cursor
         return cursor
