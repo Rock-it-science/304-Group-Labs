@@ -133,7 +133,12 @@ class OrderDB:
     def newOrder(self, orderId, customerId, orderDate, employeeId):
         """Inserts an order into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}");'.format(orderId, customerId, orderDate, employeeId))
+        cursor.execute('SELECT Price FROM OrderedProduct WHERE OrderId = {}'.format(orderId))
+        total = 0
+        for item in cursor:
+            total = item
+        print(total)
+        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}", {});'.format(orderId, customerId, orderDate, employeeId, total))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -161,7 +166,7 @@ class OrderDB:
         """Returns the list of products that have not been in any order. Hint: Left join can be used instead of a subquery."""
         print("\nExecuting query #1.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT ProductName FROM Product WHERE ProductId NOT IN(SELECT ProductId FROM OrderedProduct;')
+        cursor.execute('SELECT ProductName FROM Product WHERE ProductId NOT IN(SELECT ProductId FROM OrderedProduct);')
         # TODO: Execute the query and return a cursor
         return cursor
 
