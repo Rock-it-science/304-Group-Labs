@@ -115,7 +115,7 @@ class OrderDB:
     def deleteCustomer(self, customerId):
         """Deletes a customer from the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('DELETE FROM Customer WHERE CustomerId = {};'.format(customerId))
+        cursor.execute('DELETE FROM Customer WHERE CustomerId = "{}";'.format(customerId))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -124,7 +124,7 @@ class OrderDB:
     def updateCustomer(self, customerId, customerName):
         """Updates a customer in the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('UPDATE Customer SET CustomerName = {} WHERE CustomerId = {};'.format(CustomerName, CustomerId))
+        cursor.execute('UPDATE Customer SET CustomerName = "{}" WHERE CustomerId = "{}";'.format(customerName, customerId))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -133,7 +133,7 @@ class OrderDB:
     def newOrder(self, orderId, customerId, orderDate, employeeId):
         """Inserts an order into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('INSERT INTO Orders VALUES ({}, {}, {}, {});'.format(orderId, customerId, orderDate, employeeId))
+        cursor.execute('INSERT INTO Orders VALUES ("{}", "{}", "{}", "{}");'.format(orderId, customerId, orderDate, employeeId))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -142,7 +142,7 @@ class OrderDB:
     def newLineItem(self, orderId, proudctId, quantity, price):
         """Inserts a lineitem into the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('INSERT INTO OrderedProduct VALUES ({}, {}, {}, {});'.format(orderId, proudctId, quantity, price))
+        cursor.execute('INSERT INTO OrderedProduct VALUES ("{}", "{}", {}, "{}");'.format(orderId, proudctId, quantity, price))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
@@ -151,7 +151,7 @@ class OrderDB:
     def updateOrderTotal(self, orderId, total):
         """Updates an order total in the database"""
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('UPDATE Orders SET Total = {} WHERE OrderId = {};'.format(total, orderId))
+        cursor.execute('UPDATE Orders SET Total = "{}" WHERE OrderId = "{}";'.format(total, orderId))
         cursor.close()
         self.cnx.commit()
         # TODO: Execute statement. Make sure to commit
