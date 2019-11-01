@@ -175,7 +175,7 @@ class OrderDB:
         
         print("\nExecuting query #2.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT OrderID,Total FROM  Orders WHERE Total Not sum(OrderedProduct.Quantity*OrderedProduct.Price);')
+        cursor.execute('SELECT OrderID,Total FROM  Orders Having Total Not sum(OrderedProduct.Quantity*OrderedProduct.Price);')
         # TODO: Execute the query and return a cursor
         return cursor  
 
@@ -188,7 +188,7 @@ class OrderDB:
         
         print("\nExecuting query #3.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute('SELECT C.CustomerID,C.CustomerName,AVG(O.total) FROM Customer as C,Orders as O WHERE O.OrderDate>='2015-01-01' AND O.total>=2);')
+        cursor.execute('SELECT C.CustomerID,C.CustomerName,AVG(O.total) FROM Customer as C, Orders as O WHERE O.OrderDate>="2015-01-01" Having count(OrderID>1));')
         # TODO: Execute the query and return a cursor
         return cursor  
     
@@ -199,6 +199,8 @@ class OrderDB:
         """
         
         print("\nExecuting query #4.")
+        cursor = self.cnx.cursor(buffered = True)
+        cursor.execute('SELECT E.EmployeeID FROM Employee as E join Order as O on E.EmployeeID=O.EmployeeID WHERE ;')
         # TODO: Execute the query and return a cursor
         return cursor
     
