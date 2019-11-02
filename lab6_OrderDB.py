@@ -212,7 +212,7 @@ class OrderDB:
         
         print("\nExecuting query #4.")
         cursor = self.cnx.cursor(buffered = True)
-        cursor.execute("SELECT E.EmployeeId, E.EmployeeName, count(E.EmployeeId) as OrderCount from Employee E right join (select EmployeeId from Orders O join (select OrderId from OrderedProduct op where Quantity >= 5 group by op.OrderId) op on op.OrderId=O.OrderId) X on X.EmployeeId=E.EmployeeId group by E.EmployeeId having count(E.EmployeeId) > 1")
+        cursor.execute("SELECT E.EmployeeId, E.EmployeeName, count(E.EmployeeId) as OrderCount from Employee E right join (select EmployeeId from Orders O join (select OrderId from OrderedProduct op where Quantity >= 5 group by op.OrderId) op on op.OrderId=O.OrderId) AS B on B.EmployeeId=E.EmployeeId group by E.EmployeeId having count(E.EmployeeId) > 1")
         
 
         # TODO: Execute the query and return a cursor
